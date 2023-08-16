@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        *{
+    margin: 0 ;
+    padding: 0;
+    box-sizing: border-box;
+}
+html,body{
+    height: 100%;
+    width: 100%;
+    /* background-color: aqua; */
+}
+.main{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+    background-color: rgb(155, 203, 155);
+
+}
+.panel{
+    overflow:hidden;
+    height: 80%;
+    width: 80%;
+    border-radius: 10px;
+    background-color: #fff;
+
+}
+.ptop{
+    padding: 0px 30%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100px;
+    width: 100%;
+    background-color: rgb(72,104,72);
+    /* overflow:hidden; */
+}
+.elem{
+    display: flex;
+    /* background-color: red; */
+    align-items: center;
+    gap: 20px;
+    
+}
+.box{
+    color: rgb(18,119,57);
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #fff;
+    font-weight: 600;
+    font-size: 25px;
+}
+#pbtm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 15px;
+    height: calc(100% - 100px);
+    width: 100%;
+    /* background-color: black; */
+}
+.bubble{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    background-color: rgb(18,119,57);
+    border-radius: 50%;
+    color: #fff;
+    font-weight: 500;
+}
+.bubble:hover{
+    cursor: pointer;
+    background-color: rgb(50,75,50);
+}
+    </style>
+</head>
+<body>
+    <div class="main">
+        <div class="panel">
+            <div class="ptop">
+                <div class="elem">
+                    <h2>hit</h2>
+                    <div class="box" id="hitval">5</div>
+                </div>
+                <div class="elem">
+                    <h2>timer</h2>
+                    <div class="box" id="timerval">60</div>
+                </div>
+                <div class="elem">
+                    <h2>score</h2>
+                    <div class="box" id="scoreval">0</div>
+                </div>
+            </div>
+            <div id="pbtm">
+                <!-- <div class="bubble">5</div> -->
+                <!-- <div class="bubble">5</div> -->
+            </div>
+        </div>
+    </div>
+
+
+<script>
+let timer=60;
+let score=0;
+let hitrn =0;
+function makebubble(){
+     let clutter="";
+
+for(let i=1;i<=161;i++){
+     let rn =Math.floor(Math.random()*10)
+     clutter+=`<div class="bubble">${rn}</div>`
+}
+document.querySelector("#pbtm").innerHTML=clutter;
+}
+ 
+function runtime(){
+     let timerint=setInterval(function(){
+          if(timer>0){
+          timer--;
+          document.querySelector("#timerval").innerHTML=timer;
+          }
+          else{
+               clearInterval(timerint);
+               document.querySelector("#pbtm").innerHTML=`<h1>GAME OVER!</h1>`
+          }
+     },1000)
+
+}
+
+function getnewhit(){
+     hitrn =Math.floor(Math.random()*10)
+     document.querySelector("#hitval").innerHTML=hitrn;
+}
+
+function increasescore(){
+     score+=10;
+     document.querySelector("#scoreval").innerHTML=score;
+}
+
+document.querySelector("#pbtm").addEventListener("click", function (dets) {
+     let clickednum = Number(dets.target.innerHTML);
+ 
+     if (clickednum === hitrn) {
+         increasescore();
+         makebubble();
+         getnewhit();
+     }
+      
+     
+ });
+ 
+ makebubble();
+ getnewhit();
+ runtime();
+
+
+
+
+</script>
+</body>
+</html>
